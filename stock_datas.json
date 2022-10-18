@@ -1,8 +1,4 @@
-{
-  "draw": 0,
-  "recordsTotal": 813,
-  "recordsFiltered": 813,
-  "data": [
+[
     {
       "No": 1,
       "IDStockSummary": 3204962,
@@ -27645,5 +27641,4 @@
       "persen": null,
       "percentage": null
     }
-  ]
-}
+]
