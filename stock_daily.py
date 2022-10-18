@@ -3,6 +3,7 @@ import mysql.connector
 import time
 import datetime
 from datetime import datetime,timedelta
+import uuid
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -26,7 +27,7 @@ date_stock_yesterday = '2022-10-17 00:00:00'
 # print(stock_data_yesterday)
 # time.sleep(1000)
 f = open("stocks.txt", "w")
-sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo,name) VALUES"
+sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo,name, uuid) VALUES"
 val = "("
 for i in data:
     stock_data_yesterday = "(select close from stock_datas where stock_code = '" + i["Code"] +  "'" + "and date = '" + date_stock_yesterday + "')"
@@ -34,8 +35,9 @@ for i in data:
     stock_data_yesterday_diff = "(" + str(i["Last"]) + " - (select close from stock_datas where stock_code = '" + i["Code"] +  "'" + "and date = '" + date_stock_yesterday + "')"
     stock_logo = "( select filename from stock_logos where stock_code = '" + i["Code"]  + "')"
     stock_name = "( select name from stocks where code = '"  + i["Code"]  + "')"
+
     # print(type(i['Remarks']) )
-    data = "'"+str(i["DateTime"]).replace("T", " ") + "'" + "," + "'" + i["Code"] + "'" + ","  +str(i["Open"])  + "," + str(i["High"]) + ","+ str(i["Low"])  + "," + str(i["Last"]) + ","+ str( i["Volume"]) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name
+    data = "'"+str(i["DateTime"]).replace("T", " ") + "'" + "," + "'" + i["Code"] + "'" + ","  +str(i["Open"])  + "," + str(i["High"]) + ","+ str(i["Low"])  + "," + str(i["Last"]) + ","+ str( i["Volume"]) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
     command_val = "(" + data + ")" + ";"
     print(data)
     print(sql + command_val)
