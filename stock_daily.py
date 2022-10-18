@@ -14,7 +14,7 @@ mydb = mysql.connector.connect(
 print(mydb)
 
 mycursor = mydb.cursor()
-f = open('stock_daily.json')
+f = open('stock_daily_today.json')
 
 data = json.load(f)
 # yesterday = data[0]["DateTime"].replace("T", " ")
@@ -26,15 +26,16 @@ date_stock_yesterday = '2022-10-17 00:00:00'
 # print(stock_data_yesterday)
 # time.sleep(1000)
 f = open("stocks.txt", "w")
-sql = "INSERT INTO stock_dailies_clone (stock_id, datetime,code,open,high,low,last,volume, prev) VALUES"
+sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo) VALUES"
 val = "("
 for i in data:
     stock_data_yesterday = "(select close from stock_datas where stock_code = '" + i["Code"] +  "'" + "and date = '" + date_stock_yesterday + "')"
     stock_id = "(select uuid from stocks where code = '" + i["Code"] + "')"
     stock_data_yesterday_diff = "(" + str(i["Last"]) + " - (select close from stock_datas where stock_code = '" + i["Code"] +  "'" + "and date = '" + date_stock_yesterday + "')"
+    stock_logo = "( select filename from stock_logos where stock_code = '" + i["Code"]  + "')"
 
     # print(type(i['Remarks']) )
-    data = stock_id +",'" + str(i["DateTime"]).replace("T", " ") + "'" + "," + "'" + i["Code"] + "'" + ","  +str(i["Open"])  + "," + str(i["High"]) + ","+ str(i["Low"])  + "," + str(i["Last"]) + ","+ str( i["Volume"]) + "," + stock_data_yesterday 
+    data = "'"+str(i["DateTime"]).replace("T", " ") + "'" + "," + "'" + i["Code"] + "'" + ","  +str(i["Open"])  + "," + str(i["High"]) + ","+ str(i["Low"])  + "," + str(i["Last"]) + ","+ str( i["Volume"]) + "," + stock_data_yesterday + ","+stock_logo
     command_val = "(" + data + ")" + ";"
     print(data)
     print(sql + command_val)
