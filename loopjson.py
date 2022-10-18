@@ -12,7 +12,7 @@ mydb = mysql.connector.connect(
 print(mydb)
 
 mycursor = mydb.cursor()
-f = open('stock_intra_daily_17102022.json')
+f = open('stock_datas.json')
 
 data = json.load(f)
 f = open("stocks.txt", "w")
