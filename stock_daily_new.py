@@ -21,7 +21,7 @@ mydb = mysql.connector.connect(
 print(mydb)
 
 mycursor = mydb.cursor()
-f = open('stock_daily_today.json')
+# f = open('stock_daily_today.json')
 
 
 # print(df_agg)
