@@ -61,4 +61,7 @@ for i in df_agg.itertuples():
     
     mycursor.execute(sql + command_val)
     # mydb.commit()
+mycursor.execute("update stock_dailies set diff = last - prev")
+mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
+
 mydb.commit()
