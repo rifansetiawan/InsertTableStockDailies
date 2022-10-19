@@ -5,11 +5,7 @@ from datetime import datetime
 import datetime
 import time
 from datetime import datetime,timedelta
-df = pd.read_csv('daily.csv')
 
-df_agg=df.groupby("Code").last()
-
-date_stock_yesterday = '2022-10-17 00:00:00'
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -23,9 +19,27 @@ print(mydb)
 mycursor = mydb.cursor()
 # f = open('stock_daily_today.json')
 
+while True:
+    try:
+        src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\datasync5min-today.csv'
+        # src = 'I:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\datasync5min-today.csv'
+        dst = 'C:\\InsertTable\\InsertTableStockDailies\\datasync5min-today-copy.csv'
+        shutil.copyfile(src, dst)
+
+        csvFilePath = 'C:\saham\datasync5min-today-copy.csv'
+        jsonFilePath = 'C:\saham\saham5minutesync.json'
+        break
+    except Exception as e:
+        print("something error : " , e)
 
 # print(df_agg)
+df = pd.read_csv(dst)
 
+df_agg=df.groupby("Code").last()
+
+date_stock_yesterday = '2022-10-18 00:00:00'
+
+mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo,name, uuid) VALUES"
 val = "("
 for i in df_agg.itertuples():
@@ -45,5 +59,5 @@ for i in df_agg.itertuples():
     print(sql + command_val)
     
     mycursor.execute(sql + command_val)
-    mydb.commit()
+    # mydb.commit()
 mydb.commit()
