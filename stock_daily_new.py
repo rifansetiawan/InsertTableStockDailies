@@ -36,7 +36,7 @@ while True:
 # print(df_agg)
 df = pd.read_csv(dst)
 
-df_agg=df.groupby("Code").last()
+df_agg=df.groupby("Ticker").last()
 
 date_stock_yesterday = '2022-10-18 00:00:00'
 
@@ -44,7 +44,7 @@ mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo,name, uuid) VALUES"
 val = "("
 for i in df_agg.itertuples():
-    dateeeTime = datetime.strptime(i.DateTime, "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
+    dateeeTime = datetime.strptime(i.Date/Time, "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
     # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
     # dateeeTime = dateeeTime
     print(dateeeTime)
