@@ -49,7 +49,7 @@ for i in df_agg.itertuples():
     # dateeeTime = dateeeTime
     print(dateeeTime)
     # time.sleep(10000)
-    if i.Index == 'COMPOSITE' :
+    if i.Index == 'COMPOSITE' or i.Index("IDX", 0, 3) :
         stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "'" + "ORDER BY DATETIME DESC LIMIT 1" +  ")"
         stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
         stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_datas where stock_code = '" + i.Index +  "'" +  "ORDER BY DATE DESC LIMIT 1" +  ")"
