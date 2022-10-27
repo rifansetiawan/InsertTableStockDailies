@@ -12,7 +12,7 @@ mydb = mysql.connector.connect(
 print(mydb)
 
 mycursor = mydb.cursor()
-f = open('stock_datas.json')
+f = open('C:\\Apache24\\htdocs\\pasardana\\saham\\JSON\\20221026.json')
 
 data = json.load(f)
 f = open("stocks.txt", "w")
