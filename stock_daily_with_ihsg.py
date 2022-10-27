@@ -63,7 +63,7 @@ for i in df_agg.itertuples():
         mycursor.execute(sql + command_val)
 
     else :
-        stock_data_yesterday = "(select close from stock_datas where stock_code = '" + i.Index +  "'" + "and date = '" + date_stock_yesterday + "')"
+        stock_data_yesterday = "(select last from stock_datas where stock_code = '" + i.Index +  "'" + "and date = '" + date_stock_yesterday + "')"
         stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
         stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_datas where stock_code = '" + i.Index +  "'" + "ORDER BY DATE DESC LIMIT 1" +  ")"
         stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
