@@ -77,6 +77,8 @@ for i in df_agg.itertuples():
         stock_name = "'Sektor Teknologi'"
     elif i.Index == 'IDXTRANS':
         stock_name = "'Sektor Transportasi dan Logistik'"
+    elif i.Index == 'COMPOSITE':
+        stock_name = "'IHSG'"
 
     data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
     command_val = "(" + data + ")" + ";"
