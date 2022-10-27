@@ -22,7 +22,7 @@ mycursor = mydb.cursor()
 
 while True:
     try:
-        src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes_Oct2022.csv'
+        src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Oct2022.csv'
         # src = 'I:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\datasync5min-today.csv'
         dst = 'C:\\InsertTable\\InsertTableStockDailies\\intra5minutes_Oct2022-copy.csv'
         shutil.copyfile(src, dst)
