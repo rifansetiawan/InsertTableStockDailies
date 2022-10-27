@@ -38,7 +38,7 @@ df = pd.read_csv(dst)
 
 df_agg=df.groupby("Ticker").last()
 
-date_stock_yesterday = '2022-10-21 00:00:00'
+date_stock_yesterday = '2022-10-26 00:00:00'
 
 mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo,name, uuid) VALUES"
@@ -50,7 +50,7 @@ for i in df_agg.itertuples():
     print(dateeeTime)
     # time.sleep(10000)
     if i.Code == 'COMPOSITE' :
-        stock_data_yesterday = "(select close from stock_datas where stock_code = '" + i.Index +  "'" + "and date = '" + date_stock_yesterday + "')"
+        stock_data_yesterday = "(select close from stock_daily_historicals where stock_code = '" + i.Index +  "'" + "and date = '" + date_stock_yesterday + "')"
         stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
         stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_datas where stock_code = '" + i.Index +  "'" + "and date = '" + date_stock_yesterday + "')"
         stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
