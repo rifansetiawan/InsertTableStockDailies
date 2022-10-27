@@ -41,7 +41,7 @@ df_agg=df.groupby("Ticker").last()
 date_stock_yesterday = '2022-10-21 00:00:00'
 
 # mycursor.execute("DELETE FROM stock_dailies")
-sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume, prev, stock_logo,name, uuid) VALUES"
+sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume, stock_logo,name, uuid) VALUES"
 val = "("
 for i in df_agg.itertuples():
     dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
@@ -54,7 +54,7 @@ for i in df_agg.itertuples():
     stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_datas where stock_code = '" + i.Index +  "'" + "and date = '" + date_stock_yesterday + "')"
     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
-    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
+    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume)  + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
     command_val = "(" + data + ")" + ";"
     print(data)
     print(sql + command_val)
