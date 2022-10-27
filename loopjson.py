@@ -18,7 +18,7 @@ data = json.load(f)
 f = open("stocks.txt", "w")
 sql = "INSERT INTO stock_datas (date,stock_code,stock_name,remarks,previous,open,first_trade,high,low,close,changes,volume,value,frequency,index_individual,offer,offer_volume,bid,bid_volume,listed_shares,tradable_shares,weight_for_index,foreign_cell,foreign_buy,non_reguler_volume,non_reguler_value,non_reguler_frequency) VALUES"
 val = "("
-for i in data:
+for i in data["data"]:
     print(type(i['Remarks']) )
     data =  "'" + str(i["Date"]).replace("T", " ") + "'" + "," + "'" + i["StockCode"] + "'" + ","  + "'"+ i["StockName"] + "'" + ","+ "'" + str(i["Remarks"]) + "'"+ ","+ str(i["Previous"])  + "," + str(i["OpenPrice"]) + ","+ str(i["FirstTrade"])  + "," + str(i["High"]) + ","+ str( i["Low"])  + "," + str(i["Close"]) + ","+ str(i["Change"])  + "," + str(i["Volume"]) + ","+ str(i["Value"])  + "," + str(i["Frequency"]) + ","+ str(i["IndexIndividual"])  + "," + str(i["Offer"]) + ","+ str(i["OfferVolume"])  + "," + str(i["Bid"]) + ","+ str(i["BidVolume"])  + "," + str(i["ListedShares"]) + ","+ str(i["TradebleShares"])  + "," + str(i["WeightForIndex"]) + ","+ str(i["ForeignSell"])  + "," + str(i["ForeignBuy"]) + "," + str(i["NonRegularVolume"]) + ","+ str(i["NonRegularValue"])  + "," + str(i["NonRegularFrequency"])
 
