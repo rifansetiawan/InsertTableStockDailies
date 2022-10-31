@@ -9,10 +9,15 @@ mydb = mysql.connector.connect(
   database="pasardanamobile"
 )
 
+now = datetime.now()
+date_now = now.strftime("%Y%m%d")
+print(date_now)
 print(mydb)
 
+filepath = "C:\\Apache24\\htdocs\\pasardana\\saham\\JSON\\" + str(date_now) + ".json"
+print(filepath)
 mycursor = mydb.cursor()
-f = open('C:\\Apache24\\htdocs\\pasardana\\saham\\JSON\\20221028.json')
+f = open(filepath)
 
 data = json.load(f)
 f = open("stocks.txt", "w")
