@@ -41,7 +41,7 @@ df_agg=df.groupby("Ticker").last()
 date_stock_yesterday = '2022-10-21 00:00:00'
 
 # mycursor.execute("DELETE FROM stock_dailies")
-sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume, stock_logo,name, uuid) VALUES"
+sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
 for i in df_agg.itertuples():
     dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
