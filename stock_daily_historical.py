@@ -22,7 +22,7 @@ mycursor = mydb.cursor()
 
 while True:
     try:
-        src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Nov2022.csv'
+        src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Oct2022.csv'
         # src = 'I:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\datasync5min-today.csv'
         dst = 'C:\\InsertTable\\InsertTableStockDailies\\intra5minutes_Oct2022-copy.csv'
         shutil.copyfile(src, dst)
@@ -36,12 +36,11 @@ while True:
 # print(df_agg)
 df = pd.read_csv(dst)
 
-df_agg=df.groupby("Ticker")
+df_agg=df.groupby("Ticker").last()
 
 date_stock_yesterday = '2022-10-21 00:00:00'
 
 # mycursor.execute("DELETE FROM stock_dailies")
-mycursor.execute("DELETE FROM stock_daily_historicals")
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
 for i in df_agg.itertuples():
