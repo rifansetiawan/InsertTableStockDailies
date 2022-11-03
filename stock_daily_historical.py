@@ -36,7 +36,7 @@ while True:
 # print(df_agg)
 df = pd.read_csv(dst)
 
-df_agg=df.groupby("Ticker").last()
+df_agg=df.groupby("Ticker")
 
 date_stock_yesterday = '2022-10-21 00:00:00'
 
