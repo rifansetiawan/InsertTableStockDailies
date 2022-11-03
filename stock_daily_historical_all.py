@@ -6,7 +6,7 @@ import datetime
 import time
 from datetime import datetime,timedelta
 import shutil
-
+import csv
 
 mydb = mysql.connector.connect(
   host="localhost",
