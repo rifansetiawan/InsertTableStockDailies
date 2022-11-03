@@ -49,9 +49,9 @@ for i in df_agg.itertuples():
     # dateeeTime = dateeeTime
     print(dateeeTime)
     # time.sleep(10000)
-    stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "'" + ")"
+    stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "' and datetime <= DATE_ADD(CURDATE(), INTERVAL -1 DAY)" + ")"
     stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
-    stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_daily_historicals where code = '" + i.Index +  "'" +  ")"
+    stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_daily_historicals where code = '" + i.Index +  "' and datetime <= DATE_ADD(CURDATE(), INTERVAL -1 DAY)" +  ")"
     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
     
