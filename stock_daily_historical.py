@@ -68,6 +68,7 @@ df_agg=df.groupby("Ticker").last()
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
 for i in df_agg.itertuples():
+    print(i)
     if i != '' :
         dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
         # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
