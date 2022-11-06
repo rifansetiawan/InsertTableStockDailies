@@ -51,10 +51,9 @@ with open(dst) as f:
     next(cf)
     for row in cf:
         print(row)
-        print(row[1][0:-9])
         print(row[1])
-        time.sleep(10000)
-        if row[1] != date_now:
+        # time.sleep(10000)
+        if row[1] == date_yesterday:
             data_temp.append(row)
         
 with open('all_historical_latest.csv', 'w', encoding='UTF8', newline='') as f_tmp:
