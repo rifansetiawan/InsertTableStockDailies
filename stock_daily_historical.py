@@ -12,7 +12,7 @@ from datetime import date
 
 now = datetime.now()
 month_now = now.strftime("%b%Y")
-date_now = now.strftime("%m/%-d/%Y")
+date_now = now.strftime("%m/%#d/%Y")
 print(date_now)
 print(month_now)
 
