@@ -69,7 +69,7 @@ sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,vol
 val = "("
 for i in df_agg.itertuples():
     datetime_time = datetime.strptime(i[df.columns.get_loc('Date/Time')], '%m/%#d/%Y %H:%M:%S')
-    print(datetime_time)
+    print(i[df.columns.get_loc('Date/Time')])
     dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
     # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
     # dateeeTime = dateeeTime
