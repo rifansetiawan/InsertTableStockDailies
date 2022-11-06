@@ -6,7 +6,18 @@ import datetime
 import time
 from datetime import datetime,timedelta
 import shutil
+import csv
+from datetime import date
 
+
+now = datetime.now()
+month_now = now.strftime("%b%Y")
+date_now = now.strftime("%m/%-d/%Y")
+print(date_now)
+print(month_now)
+
+header_temp = ['Ticker','Date/Time','Open','High','Low','Close','Volume','OpenInt','OpenInt']
+data_temp = []
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -22,9 +33,9 @@ mycursor = mydb.cursor()
 
 while True:
     try:
-        src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Nov2022.csv'
+        src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes ' + month_now + '.csv'
         # src = 'I:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\datasync5min-today.csv'
-        dst = 'C:\\InsertTable\\InsertTableStockDailies\\intra5minutes_Oct2022-copy.csv'
+        dst = 'C:\\InsertTable\\InsertTableStockDailies\\intra5minutes_' + month_now + '-copy.csv'
         shutil.copyfile(src, dst)
 
         csvFilePath = 'C:\saham\datasync5min-today-copy.csv'
@@ -33,12 +44,25 @@ while True:
     except Exception as e:
         print("something error : " , e)
 
+with open(dst) as f:
+    cf = csv.reader(f)
+    next(cf)
+    for row in cf:
+        print(row)
+        print(row[1][0:-9])
+        if row[1][0:-9] != date_now:
+            data_temp.append(row)
+        
+with open('all_historical_latest.csv', 'w', encoding='UTF8', newline='') as f_tmp:
+    writer = csv.writer(f_tmp)
+    writer.writerow(header_temp)
+    writer.writerows(data_temp)
+
 # print(df_agg)
-df = pd.read_csv(dst)
+df = pd.read_csv("all_historical_latest.csv")
 
 df_agg=df.groupby("Ticker").last()
 
-date_stock_yesterday = '2022-10-21 00:00:00'
 
 # mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
