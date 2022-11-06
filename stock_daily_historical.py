@@ -52,7 +52,7 @@ with open(dst) as f:
     for row in cf:
         print(row)
         print(row[1][0:-9])
-        if row[1][0:-9] != date_now:
+        if row[1][0:-9] != '11/4/2022':
             data_temp.append(row)
         
 with open('all_historical_latest.csv', 'w', encoding='UTF8', newline='') as f_tmp:
