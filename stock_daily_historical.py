@@ -55,7 +55,7 @@ with open(dst) as f:
         # time.sleep(10000)
         # if row[1] == '11/4/2022':
         #     data_temp.append(row)
-        if row[1] == date_now:
+        if row[1] != date_now:
             data_temp.append(row)
         
 with open('all_historical_latest.csv', 'w', encoding='UTF8', newline='') as f_tmp:
