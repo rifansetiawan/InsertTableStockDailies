@@ -50,8 +50,8 @@ with open(dst) as f:
     cf = csv.reader(f)
     next(cf)
     for row in cf:
-        print(row)
-        print(row[1])
+        # print(row)
+        # print(row[1])
         # time.sleep(10000)
         # if row[1] == '11/4/2022':
         #     data_temp.append(row)
@@ -68,7 +68,7 @@ df = pd.read_csv("all_historical_latest.csv", skipfooter=1)
 
 df_agg=df.groupby("Ticker").last()
 
-
+print(df_agg)
 # mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
