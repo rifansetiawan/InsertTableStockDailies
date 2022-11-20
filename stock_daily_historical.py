@@ -50,8 +50,8 @@ with open(dst) as f:
     cf = csv.reader(f)
     next(cf)
     for row in cf:
-        # print(row)
-        # print(row[1])
+        print(row)
+        print(row[1])
         # time.sleep(10000)
         # if row[1] == '11/4/2022':
         #     data_temp.append(row)
@@ -68,8 +68,7 @@ df = pd.read_csv("all_historical_latest.csv")
 
 df_agg=df.groupby("Ticker").last()
 
-print(df_agg)
-time.sleep(1000)
+
 # mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
@@ -85,7 +84,10 @@ for i in df_agg.itertuples():
     print(sql + command_val)
     
     mycursor.execute(sql + command_val)
-    mydb.commit()
+    try:
+        mydb.commit()
+    except:
+        print("there is error")
     # mydb.commit()
 # mycursor.execute("update stock_dailies set diff = last - prev")
 # mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
