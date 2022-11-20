@@ -73,22 +73,24 @@ df_agg=df.groupby("Ticker").last()
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
 for i in df_agg.itertuples():
-    dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y").strftime('%Y-%m-%d %H:%M:%S')
-    # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
-    # dateeeTime = dateeeTime
-    print(dateeeTime)
-    # time.sleep(10000)
-    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume)
-    command_val = "(" + data + ")" + ";"
-    print(data)
-    print(sql + command_val)
-    
-    mycursor.execute(sql + command_val)
-    try:
-        mydb.commit()
-    except:
-        print("there is error")
-    # mydb.commit()
+    if i != null :
+
+        dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y").strftime('%Y-%m-%d %H:%M:%S')
+        # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
+        # dateeeTime = dateeeTime
+        print(dateeeTime)
+        # time.sleep(10000)
+        data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume)
+        command_val = "(" + data + ")" + ";"
+        print(data)
+        print(sql + command_val)
+        
+        mycursor.execute(sql + command_val)
+        try:
+            mydb.commit()
+        except:
+            print("there is error")
+        # mydb.commit()
 # mycursor.execute("update stock_dailies set diff = last - prev")
 # mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
 
