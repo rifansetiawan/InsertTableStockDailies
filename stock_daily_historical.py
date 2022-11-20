@@ -50,8 +50,8 @@ with open(dst) as f:
     cf = csv.reader(f)
     next(cf)
     for row in cf:
-        # print(row)
-        # print(row[1])
+        print(row)
+        print(row[1])
         # time.sleep(10000)
         # if row[1] == '11/4/2022':
         #     data_temp.append(row)
@@ -73,22 +73,19 @@ df_agg=df.groupby("Ticker").last()
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
 for i in df_agg.itertuples():
-    try:
-        dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y").strftime('%Y-%m-%d %H:%M:%S')
-        # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
-        # dateeeTime = dateeeTime
-        print(dateeeTime)
-        # time.sleep(10000)
-        data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume)
-        command_val = "(" + data + ")" + ";"
-        print(data)
-        print(sql + command_val)
-        
-        mycursor.execute(sql + command_val)
-        mydb.commit()
-    except:
-        print("there is error")
+    dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y").strftime('%Y-%m-%d %H:%M:%S')
+    # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
+    # dateeeTime = dateeeTime
+    print(dateeeTime)
+    # time.sleep(10000)
+    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume)
+    command_val = "(" + data + ")" + ";"
+    print(data)
+    print(sql + command_val)
+    
+    mycursor.execute(sql + command_val)
     # mydb.commit()
 # mycursor.execute("update stock_dailies set diff = last - prev")
 # mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
 
+mydb.commit()
