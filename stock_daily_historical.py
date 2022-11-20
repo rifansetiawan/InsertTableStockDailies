@@ -73,8 +73,7 @@ df_agg=df.groupby("Ticker").last()
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
 for i in df_agg.itertuples():
-    if i != null :
-
+    try:
         dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y").strftime('%Y-%m-%d %H:%M:%S')
         # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
         # dateeeTime = dateeeTime
@@ -86,11 +85,10 @@ for i in df_agg.itertuples():
         print(sql + command_val)
         
         mycursor.execute(sql + command_val)
-        try:
-            mydb.commit()
-        except:
-            print("there is error")
-        # mydb.commit()
+        mydb.commit()
+    except:
+        print("there is error")
+    # mydb.commit()
 # mycursor.execute("update stock_dailies set diff = last - prev")
 # mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
 
