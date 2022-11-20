@@ -33,35 +33,35 @@ print(mydb)
 mycursor = mydb.cursor()
 # f = open('stock_daily_today.json')
 
-# while True:
-#     try:
-#         src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes ' + month_now + '.csv'
-#         # src = 'I:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\datasync5min-today.csv'
-#         dst = 'C:\\InsertTable\\InsertTableStockDailies\\intra5minutes_' + month_now + '-copy.csv'
-#         shutil.copyfile(src, dst)
+while True:
+    try:
+        src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes ' + month_now + '.csv'
+        # src = 'I:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\datasync5min-today.csv'
+        dst = 'C:\\InsertTable\\InsertTableStockDailies\\intra5minutes_' + month_now + '-copy.csv'
+        shutil.copyfile(src, dst)
 
-#         csvFilePath = 'C:\saham\datasync5min-today-copy.csv'
-#         jsonFilePath = 'C:\saham\saham5minutesync.json'
-#         break
-#     except Exception as e:
-#         print("something error : " , e)
+        csvFilePath = 'C:\saham\datasync5min-today-copy.csv'
+        jsonFilePath = 'C:\saham\saham5minutesync.json'
+        break
+    except Exception as e:
+        print("something error : " , e)
 
-# with open(dst) as f:
-#     cf = csv.reader(f)
-#     next(cf)
-#     for row in cf:
-#         print(row)
-#         print(row[1])
-#         # time.sleep(10000)
-#         # if row[1] == '11/4/2022':
-#         #     data_temp.append(row)
-#         if row[1] != date_now:
-#             data_temp.append(row)
+with open(dst) as f:
+    cf = csv.reader(f)
+    next(cf)
+    for row in cf:
+        print(row)
+        print(row[1])
+        # time.sleep(10000)
+        # if row[1] == '11/4/2022':
+        #     data_temp.append(row)
+        if row[1] != date_now:
+            data_temp.append(row)
         
-# with open('all_historical_latest.csv', 'w', encoding='UTF8', newline='') as f_tmp:
-#     writer = csv.writer(f_tmp)
-#     writer.writerow(header_temp)
-#     writer.writerows(data_temp)
+with open('all_historical_latest.csv', 'w', encoding='UTF8', newline='') as f_tmp:
+    writer = csv.writer(f_tmp)
+    writer.writerow(header_temp)
+    writer.writerows(data_temp)
 
 # print(df_agg)
 df = pd.read_csv("all_historical_latest.csv")
