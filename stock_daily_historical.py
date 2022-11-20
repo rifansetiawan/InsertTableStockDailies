@@ -50,8 +50,8 @@ with open(dst) as f:
     cf = csv.reader(f)
     next(cf)
     for row in cf:
-        print(row)
-        print(row[1])
+        # print(row)
+        # print(row[1])
         # time.sleep(10000)
         # if row[1] == '11/4/2022':
         #     data_temp.append(row)
