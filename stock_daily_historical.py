@@ -68,7 +68,7 @@ df = pd.read_csv("all_historical_latest.csv")
 
 df_agg=df.groupby("Ticker").last()
 
-
+print(df_agg)
 # mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,volume) VALUES"
 val = "("
