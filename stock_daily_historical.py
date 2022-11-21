@@ -74,7 +74,7 @@ sql = "INSERT INTO stock_daily_historicals (datetime,code,open,high,low,last,vol
 val = "("
 for i in df_agg.itertuples():
     try:
-        dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y").strftime('%Y-%m-%d %H:%M:%S')
+        dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
     except Exception as e:
         print(e)
         print(i)
