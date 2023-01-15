@@ -6,8 +6,14 @@ import datetime
 import time
 from datetime import datetime,timedelta
 import shutil
+from datetime import date
 
 
+today = date.today()
+
+today_str = str(today) + " 00:00:00"
+
+print("today str : ", today_str)
 mydb = mysql.connector.connect(
   host="localhost",
   user="rifan",
@@ -54,7 +60,15 @@ for i in df_agg.itertuples():
     stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_daily_historicals where code = '" + i.Index +  "'" + "ORDER BY DATE DESC LIMIT 1" + ")"
     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
-    
+    stock_highest = "(select high from stock_daily_historicals where code = '" + i.Index + "' and datetime >= "+today_str+ "ORDER BY high desc limit 1)"
+    stock_lowest = "(select low from stock_daily_historicals where code = '" + i.Index + "' and datetime >=  "+today_str + "ORDER BY low desc limit 1)"
+    stock_volume = "( select sum(volume) from stock_daily_historicals where code = '"  + i.Index  + "' and date)"
+
+    print("stock highest : ", stock_highest)
+    print("stock lowest : ", stock_lowest)
+    print("stock volume : ", stock_volume)
+
+
     if i.Index == 'IDXBASIC':
         stock_name = "'Sektor Barang Baku'"
     elif i.Index == 'IDXCYCLIC':
