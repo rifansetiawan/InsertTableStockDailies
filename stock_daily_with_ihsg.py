@@ -51,7 +51,7 @@ while True:
 
 # print(df_agg)
 df = pd.read_csv(dst)
-df_januari = src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Jan2023.csv'
+df_januari = pd.read_csv('H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Jan2023.csv')
 
 df_agg=df.groupby("Ticker").last()
 
@@ -77,7 +77,7 @@ for i in df_agg.itertuples():
 
     # stock_highest_df = df.groupby("Ticker")[""]
     # stock_lowest_df = df.groupby("Ticker")[""]
-    stock_prev = df_januari.groupby("Ticker").get_group(str(i.Close))["Last"][-1]
+    stock_prev = df_januari.groupby("Ticker")[-1]
 
     print(stock_prev)
     stock_volume_df = df.groupby("Ticker").get_group(str(i.Index))["Volume"]
