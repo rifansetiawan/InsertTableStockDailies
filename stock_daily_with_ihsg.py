@@ -71,7 +71,7 @@ for i in df_agg.itertuples():
     print("stock lowest : ", stock_lowest)
     print("stock volume : ", stock_volume)
 
-
+    time.sleep(1000)
     if i.Index == 'IDXBASIC':
         stock_name = "'Sektor Barang Baku'"
     elif i.Index == 'IDXCYCLIC':
