@@ -112,7 +112,7 @@ for i in df_agg.itertuples():
     elif i.Index == 'COMPOSITE':
         stock_name = "'IHSG'"
 
-    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + stock_high_df + ","+ stock_min_df  + "," + str(i.Close) + ","+ sum_volume + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
+    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(stock_high_df) + ","+ str(stock_min_df)  + "," + str(i.Close) + ","+ str(sum_volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
     command_val = "(" + data + ")" + ";"
     print(data)
     print(sql + command_val)
