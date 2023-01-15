@@ -63,9 +63,9 @@ for i in df_agg.itertuples():
     stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_daily_historicals where code = '" + i.Index +  "'" + "ORDER BY DATE DESC LIMIT 1" + ")"
     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
-    stock_highest = "(select high from stock_daily_historicals where code = '" + i.Index + "' and datetime >= "+"'"+today_str+"'"+ " ORDER BY high desc limit 1)"
-    stock_lowest = "(select low from stock_daily_historicals where code = '" + i.Index + "' and datetime >=  "+"'"+today_str +"'"+ " ORDER BY low asc limit 1)"
-    stock_volume = "( select sum(volume) from stock_daily_historicals where code = '"  + i.Index  + "' and datetime >= '"+today_str+"' )"
+    # stock_highest = "(select high from stock_daily_historicals where code = '" + i.Index + "' and datetime >= "+"'"+today_str+"'"+ " ORDER BY high desc limit 1)"
+    # stock_lowest = "(select low from stock_daily_historicals where code = '" + i.Index + "' and datetime >=  "+"'"+today_str +"'"+ " ORDER BY low asc limit 1)"
+    # stock_volume = "( select sum(volume) from stock_daily_historicals where code = '"  + i.Index  + "' and datetime >= '"+today_str+"' )"
 
     # stock_highest_df = df.groupby("Ticker")[""]
     # stock_lowest_df = df.groupby("Ticker")[""]
@@ -145,6 +145,7 @@ for i in df_agg.itertuples():
     
     #     mycursor.execute(sql + command_val)
     # # mydb.commit()
+mydb.commit()
 mycursor.execute("update stock_dailies set diff = last - prev")
 mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
 
