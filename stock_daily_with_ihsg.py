@@ -65,107 +65,106 @@ mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo,name, uuid) VALUES"
 val = "("
 for i in df_agg.itertuples():
-    if (str(i.Index) != "ABDA" or str(i.Index) != "ARMY"):
+    if str(i.Index) != "ABDA" and str(i.Index) != "ARMY":
+        dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
+        # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
+        # dateeeTime = dateeeTime
+        print(dateeeTime)
+        # time.sleep(10000)
+        stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "'" + " ORDER BY DATETIME DESC LIMIT 1" + ")"
+        stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
+        stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_daily_historicals where code = '" + i.Index +  "'" + "ORDER BY DATE DESC LIMIT 1" + ")"
+        stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
+        stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
+        # stock_highest = "(select high from stock_daily_historicals where code = '" + i.Index + "' and datetime >= "+"'"+today_str+"'"+ " ORDER BY high desc limit 1)"
+        # stock_lowest = "(select low from stock_daily_historicals where code = '" + i.Index + "' and datetime >=  "+"'"+today_str +"'"+ " ORDER BY low asc limit 1)"
+        # stock_volume = "( select sum(volume) from stock_daily_historicals where code = '"  + i.Index  + "' and datetime >= '"+today_str+"' )"
+
+        # stock_highest_df = df.groupby("Ticker")[""]
+        # stock_lowest_df = df.groupby("Ticker")[""]
         print(str(i.Index))
         stock_prev = df_januari.groupby("Ticker").get_group(str(i.Index)).iloc[-1]["Close"]
         print(stock_prev)
-#         dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
-#         # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
-#         # dateeeTime = dateeeTime
-#         print(dateeeTime)
-#         # time.sleep(10000)
-#         stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "'" + " ORDER BY DATETIME DESC LIMIT 1" + ")"
-#         stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
-#         stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_daily_historicals where code = '" + i.Index +  "'" + "ORDER BY DATE DESC LIMIT 1" + ")"
-#         stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
-#         stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
-#         # stock_highest = "(select high from stock_daily_historicals where code = '" + i.Index + "' and datetime >= "+"'"+today_str+"'"+ " ORDER BY high desc limit 1)"
-#         # stock_lowest = "(select low from stock_daily_historicals where code = '" + i.Index + "' and datetime >=  "+"'"+today_str +"'"+ " ORDER BY low asc limit 1)"
-#         # stock_volume = "( select sum(volume) from stock_daily_historicals where code = '"  + i.Index  + "' and datetime >= '"+today_str+"' )"
-
-#         # stock_highest_df = df.groupby("Ticker")[""]
-#         # stock_lowest_df = df.groupby("Ticker")[""]
-
-#         # time.sleep(1000)
-#         stock_volume_df = df.groupby("Ticker").get_group(str(i.Index))["Volume"]
-#         stock_high_df = df.groupby("Ticker").get_group(str(i.Index))["High"]
-#         stock_low_df = df.groupby("Ticker").get_group(str(i.Index))["Low"]
+        # time.sleep(1000)
+        stock_volume_df = df.groupby("Ticker").get_group(str(i.Index))["Volume"]
+        stock_high_df = df.groupby("Ticker").get_group(str(i.Index))["High"]
+        stock_low_df = df.groupby("Ticker").get_group(str(i.Index))["Low"]
 
 
-#         sum_volume = sum(stock_volume_df)
-#         stock_max_df = max(stock_high_df)
-#         stock_min_df = min(stock_low_df)
+        sum_volume = sum(stock_volume_df)
+        stock_max_df = max(stock_high_df)
+        stock_min_df = min(stock_low_df)
 
-#         print(sum_volume)
-#         print(stock_max_df)
-#         print(stock_min_df)
+        print(sum_volume)
+        print(stock_max_df)
+        print(stock_min_df)
 
-#         # time.sleep(1000)
-#         # print("stock highest : ", stock_highest)
-#         # print("stock lowest : ", stock_lowest)
-#         # print("stock volume : ", stock_volume)
+        # time.sleep(1000)
+        # print("stock highest : ", stock_highest)
+        # print("stock lowest : ", stock_lowest)
+        # print("stock volume : ", stock_volume)
 
-#         # time.sleep(1000)
-#         if i.Index == 'IDXBASIC':
-#             stock_name = "'Sektor Barang Baku'"
-#         elif i.Index == 'IDXCYCLIC':
-#             stock_name = "'Sektor Konsumer Non-Primer'"
-#         elif i.Index == 'IDXENERGY':
-#             stock_name = "'Sektor Energi'"
-#         elif i.Index == 'IDXFINANCE':
-#             stock_name = "'Sektor Keuangan'"
-#         elif i.Index == 'IDXHEALTH':
-#             stock_name = "'Sektor Kesehatan'"
-#         elif i.Index == 'IDXINDUST':
-#             stock_name = "'Sektor Perindustrian'"
-#         elif i.Index == 'IDXINFRA':
-#             stock_name = "'Sektor Infrastruktur'"
-#         elif i.Index == 'IDXNONCYC':
-#             stock_name = "'Sektor Konsumen Primer'"
-#         elif i.Index == 'IDXPROPERTY':
-#             stock_name = "'Sektor Properti dan Real Estat'"
-#         elif i.Index == 'IDXTECHNO':
-#             stock_name = "'Sektor Teknologi'"
-#         elif i.Index == 'IDXTRANS':
-#             stock_name = "'Sektor Transportasi dan Logistik'"
-#         elif i.Index == 'COMPOSITE':
-#             stock_name = "'IHSG'"
+        # time.sleep(1000)
+        if i.Index == 'IDXBASIC':
+            stock_name = "'Sektor Barang Baku'"
+        elif i.Index == 'IDXCYCLIC':
+            stock_name = "'Sektor Konsumer Non-Primer'"
+        elif i.Index == 'IDXENERGY':
+            stock_name = "'Sektor Energi'"
+        elif i.Index == 'IDXFINANCE':
+            stock_name = "'Sektor Keuangan'"
+        elif i.Index == 'IDXHEALTH':
+            stock_name = "'Sektor Kesehatan'"
+        elif i.Index == 'IDXINDUST':
+            stock_name = "'Sektor Perindustrian'"
+        elif i.Index == 'IDXINFRA':
+            stock_name = "'Sektor Infrastruktur'"
+        elif i.Index == 'IDXNONCYC':
+            stock_name = "'Sektor Konsumen Primer'"
+        elif i.Index == 'IDXPROPERTY':
+            stock_name = "'Sektor Properti dan Real Estat'"
+        elif i.Index == 'IDXTECHNO':
+            stock_name = "'Sektor Teknologi'"
+        elif i.Index == 'IDXTRANS':
+            stock_name = "'Sektor Transportasi dan Logistik'"
+        elif i.Index == 'COMPOSITE':
+            stock_name = "'IHSG'"
 
-#         data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(stock_max_df) + ","+ str(stock_min_df)  + "," + str(i.Close) + ","+ str(sum_volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
-#         command_val = "(" + data + ")" + ";"
-#         print(data)
-#         print(sql + command_val)
+        data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(stock_max_df) + ","+ str(stock_min_df)  + "," + str(i.Close) + ","+ str(sum_volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
+        command_val = "(" + data + ")" + ";"
+        print(data)
+        print(sql + command_val)
             
-#         mycursor.execute(sql + command_val)
+        mycursor.execute(sql + command_val)
         
-#         # if i.Index == 'COMPOSITE' or i.Index("IDX", 0, 3) :
-#         #     stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "'" + "ORDER BY DATETIME DESC LIMIT 1" +  ")"
-#         #     stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
-#         #     stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_daily_historicals where code = '" + i.Index +  "'" +  "ORDER BY DATE DESC LIMIT 1" +  ")"
-#         #     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
-#         #     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
-#         #     data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
-#         #     command_val = "(" + data + ")" + ";"
-#         #     print(data)
-#         #     print(sql + command_val)
+        # if i.Index == 'COMPOSITE' or i.Index("IDX", 0, 3) :
+        #     stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "'" + "ORDER BY DATETIME DESC LIMIT 1" +  ")"
+        #     stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
+        #     stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_daily_historicals where code = '" + i.Index +  "'" +  "ORDER BY DATE DESC LIMIT 1" +  ")"
+        #     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
+        #     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
+        #     data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
+        #     command_val = "(" + data + ")" + ";"
+        #     print(data)
+        #     print(sql + command_val)
             
-#         #     mycursor.execute(sql + command_val)
+        #     mycursor.execute(sql + command_val)
 
-#         # else :
-#         #     stock_data_yesterday = "(select close from stock_datas where stock_code = '" + i.Index +  "'" +  "ORDER BY DATE DESC LIMIT 1" +  ")"
-#         #     stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
-#         #     stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_datas where stock_code = '" + i.Index +  "'" + "ORDER BY DATE DESC LIMIT 1" +  ")"
-#         #     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
-#         #     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
-#         #     data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
-#         #     command_val = "(" + data + ")" + ";"
-#         #     print(data)
-#         #     print(sql + command_val)
+        # else :
+        #     stock_data_yesterday = "(select close from stock_datas where stock_code = '" + i.Index +  "'" +  "ORDER BY DATE DESC LIMIT 1" +  ")"
+        #     stock_id = "(select uuid from stocks where code = '" + i.Index + "')"
+        #     stock_data_yesterday_diff = "(" + str(i.Close) + " - (select close from stock_datas where stock_code = '" + i.Index +  "'" + "ORDER BY DATE DESC LIMIT 1" +  ")"
+        #     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
+        #     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
+        #     data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
+        #     command_val = "(" + data + ")" + ";"
+        #     print(data)
+        #     print(sql + command_val)
         
-#         #     mycursor.execute(sql + command_val)
-#         # # mydb.commit()
-# mydb.commit()
-# mycursor.execute("update stock_dailies set diff = last - prev")
-# mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
+        #     mycursor.execute(sql + command_val)
+        # # mydb.commit()
+mydb.commit()
+mycursor.execute("update stock_dailies set diff = last - prev")
+mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
 
-# mydb.commit()
+mydb.commit()
