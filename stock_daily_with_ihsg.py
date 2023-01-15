@@ -81,7 +81,7 @@ for i in df_agg.itertuples():
     print(stock_max_df)
     print(stock_min_df)
 
-    time.sleep(1000)
+    # time.sleep(1000)
     print("stock highest : ", stock_highest)
     print("stock lowest : ", stock_lowest)
     print("stock volume : ", stock_volume)
