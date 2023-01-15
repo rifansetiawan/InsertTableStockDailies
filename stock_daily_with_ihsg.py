@@ -79,6 +79,7 @@ for i in df_agg.itertuples():
 
     # stock_highest_df = df.groupby("Ticker")[""]
     # stock_lowest_df = df.groupby("Ticker")[""]
+    print(str(i.Index))
     stock_prev = df_januari.groupby("Ticker").get_group(str(i.Index)).iloc[-1]["Close"]
     print(stock_prev)
     # time.sleep(1000)
