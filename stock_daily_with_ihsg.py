@@ -102,7 +102,7 @@ for i in df_agg.itertuples():
     print(data)
     print(sql + command_val)
         
-    # mycursor.execute(sql + command_val)
+    mycursor.execute(sql + command_val)
     
     # if i.Index == 'COMPOSITE' or i.Index("IDX", 0, 3) :
     #     stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "'" + "ORDER BY DATETIME DESC LIMIT 1" +  ")"
