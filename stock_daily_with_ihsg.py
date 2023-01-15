@@ -69,7 +69,7 @@ for i in df_agg.itertuples():
 
     # stock_highest_df = df.groupby("Ticker")[""]
     # stock_lowest_df = df.groupby("Ticker")[""]
-    stock_volume_df = df.groupby("Ticker")
+    stock_volume_df = df.groupby("Ticker").get_group(str(i.Index))
     print(stock_volume_df)
     time.sleep(1000)
     print("stock highest : ", stock_highest)
