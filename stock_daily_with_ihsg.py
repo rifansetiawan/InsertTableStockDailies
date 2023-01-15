@@ -64,7 +64,7 @@ for i in df_agg.itertuples():
     stock_logo = "( select filename from stock_logos where stock_code = '" + i.Index  + "')"
     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
     stock_highest = "(select high from stock_daily_historicals where code = '" + i.Index + "' and datetime >= "+"'"+today_str+"'"+ " ORDER BY high desc limit 1)"
-    stock_lowest = "(select low from stock_daily_historicals where code = '" + i.Index + "' and datetime >=  "+"'"+today_str +"'"+ " ORDER BY low desc limit 1)"
+    stock_lowest = "(select low from stock_daily_historicals where code = '" + i.Index + "' and datetime >=  "+"'"+today_str +"'"+ " ORDER BY low asc limit 1)"
     stock_volume = "( select sum(volume) from stock_daily_historicals where code = '"  + i.Index  + "' and datetime >= '"+today_str+"' )"
 
     print("stock highest : ", stock_highest)
