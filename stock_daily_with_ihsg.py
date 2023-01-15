@@ -65,7 +65,7 @@ for i in df_agg.itertuples():
     stock_name = "( select name from stocks where code = '"  + i.Index  + "')"
     stock_highest = "(select high from stock_daily_historicals where code = '" + i.Index + "' and datetime >= "+today_str+ "ORDER BY high desc limit 1)"
     stock_lowest = "(select low from stock_daily_historicals where code = '" + i.Index + "' and datetime >=  "+today_str + "ORDER BY low desc limit 1)"
-    stock_volume = "( select sum(volume) from stock_daily_historicals where code = '"  + i.Index  + "' and date)"
+    stock_volume = "( select sum(volume) from stock_daily_historicals where code = '"  + i.Index  + "' and datetime >= "+today_str+" )"
 
     print("stock highest : ", stock_highest)
     print("stock lowest : ", stock_lowest)
@@ -97,7 +97,7 @@ for i in df_agg.itertuples():
     elif i.Index == 'COMPOSITE':
         stock_name = "'IHSG'"
 
-    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(i.High) + ","+ str(i.Low)  + "," + str(i.Close) + ","+ str( i.Volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
+    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + stock_highest + ","+ stock_lowest  + "," + str(i.Close) + ","+ stock_volume + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
     command_val = "(" + data + ")" + ";"
     print(data)
     print(sql + command_val)
