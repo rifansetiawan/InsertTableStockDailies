@@ -65,7 +65,7 @@ mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo,name, uuid) VALUES"
 val = "("
 for i in df_agg.itertuples():
-    if str(i.Index) != "ABDA" or str(i.Index) != "ARMY":
+    if (str(i.Index) != "ABDA" or str(i.Index) != "ARMY"):
         print(str(i.Index))
         stock_prev = df_januari.groupby("Ticker").get_group(str(i.Index)).iloc[-1]["Close"]
         print(stock_prev)
