@@ -75,7 +75,7 @@ for i in df_agg.itertuples():
 
     sum_volume = sum(stock_volume_df)
     stock_max_df = max(stock_high_df)
-    stock_min_df = max(stock_low_df)
+    stock_min_df = min(stock_low_df)
 
     print(sum_volume)
     print(stock_max_df)
