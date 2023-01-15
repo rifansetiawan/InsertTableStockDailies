@@ -13,6 +13,13 @@ today = date.today()
 
 today_str = str(today) + " 00:00:00"
 today_str = "2023-01-13 00:00:00"
+januari_CSV = "intra5minutes Jan2023.csv"
+februari_CSV = "intra5minutes Feb2023.csv"
+maret_CSV = "intra5minutes Mar2023.csv"
+april_CSV = "intra5minutes Apr2023.csv"
+may_CSV = "intra5minutes May2023.csv"
+
+
 
 
 print("today str : ", today_str)
@@ -44,6 +51,7 @@ while True:
 
 # print(df_agg)
 df = pd.read_csv(dst)
+df_januari = src = 'H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Jan2023.csv'
 
 df_agg=df.groupby("Ticker").last()
 
@@ -69,9 +77,13 @@ for i in df_agg.itertuples():
 
     # stock_highest_df = df.groupby("Ticker")[""]
     # stock_lowest_df = df.groupby("Ticker")[""]
+    stock_prev = df_januari.groupby("Ticker").get_group(str(i.Close))["Last"][-1]
+
+    print(stock_prev)
     stock_volume_df = df.groupby("Ticker").get_group(str(i.Index))["Volume"]
     stock_high_df = df.groupby("Ticker").get_group(str(i.Index))["High"]
     stock_low_df = df.groupby("Ticker").get_group(str(i.Index))["Low"]
+
 
     sum_volume = sum(stock_volume_df)
     stock_max_df = max(stock_high_df)
