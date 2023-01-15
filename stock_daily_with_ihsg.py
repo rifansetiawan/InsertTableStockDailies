@@ -54,6 +54,8 @@ df = pd.read_csv(dst)
 df_januari = pd.read_csv('H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Jan2023.csv')
 
 df_agg=df.groupby("Ticker").last()
+df_agg_januari=df_januari.groupby("Ticker").last()
+
 
 date_stock_yesterday = '2022-10-26 00:00:00'
 
@@ -77,8 +79,9 @@ for i in df_agg.itertuples():
 
     # stock_highest_df = df.groupby("Ticker")[""]
     # stock_lowest_df = df.groupby("Ticker")[""]
-    stock_prev = df_januari.groupby("Ticker").get_group(str(i.Index))["Close"].iloc[-1]
+    stock_prev = df_januari.groupby("Ticker").get_group(str(i.Index))["Close"]
     print(stock_prev)
+    time.sleep(1000)
     stock_volume_df = df.groupby("Ticker").get_group(str(i.Index))["Volume"]
     stock_high_df = df.groupby("Ticker").get_group(str(i.Index))["High"]
     stock_low_df = df.groupby("Ticker").get_group(str(i.Index))["Low"]
