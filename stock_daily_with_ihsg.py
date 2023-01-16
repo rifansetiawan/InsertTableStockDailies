@@ -69,9 +69,11 @@ for i in df_agg.itertuples():
 
     # stock_highest_df = df.groupby("Ticker")[""]
     # stock_lowest_df = df.groupby("Ticker")[""]
+    stock_open_df = df.groupby("Ticker").get_group(str(i.Index))["Open"].iloc[0]
     stock_volume_df = df.groupby("Ticker").get_group(str(i.Index))["Volume"]
     stock_high_df = df.groupby("Ticker").get_group(str(i.Index))["High"]
     stock_low_df = df.groupby("Ticker").get_group(str(i.Index))["Low"]
+    
 
     sum_volume = sum(stock_volume_df)
     stock_max_df = max(stock_high_df)
@@ -112,7 +114,7 @@ for i in df_agg.itertuples():
     elif i.Index == 'COMPOSITE':
         stock_name = "'IHSG'"
 
-    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(i.Open)  + "," + str(stock_max_df) + ","+ str(stock_min_df)  + "," + str(i.Close) + ","+ str(sum_volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
+    data = "'"+str(dateeeTime).replace("T", " ") + "'" + "," + "'" + i.Index + "'" + ","  +str(stock_open_df)  + "," + str(stock_max_df) + ","+ str(stock_min_df)  + "," + str(i.Close) + ","+ str(sum_volume) + "," + stock_data_yesterday + ","+stock_logo + ","+ stock_name + ",'" + str(uuid.uuid4())+ "'"
     command_val = "(" + data + ")" + ";"
     print(data)
     print(sql + command_val)
