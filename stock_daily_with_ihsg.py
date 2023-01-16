@@ -13,13 +13,6 @@ today = date.today()
 
 today_str = str(today) + " 00:00:00"
 today_str = "2023-01-13 00:00:00"
-januari_CSV = "intra5minutes Jan2023.csv"
-februari_CSV = "intra5minutes Feb2023.csv"
-maret_CSV = "intra5minutes Mar2023.csv"
-april_CSV = "intra5minutes Apr2023.csv"
-may_CSV = "intra5minutes May2023.csv"
-
-
 
 
 print("today str : ", today_str)
@@ -51,13 +44,8 @@ while True:
 
 # print(df_agg)
 df = pd.read_csv(dst)
-df_januari = pd.read_csv('H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Jan2023.csv')
-df_NOVEMBER_2022 = pd.read_csv('H:\\.shortcut-targets-by-id\\1Xa97Cqc118zC8pDRVJvCEhHGF27dyQ1f\\Intra5minutes\\intra5minutes Nov2022.csv')
-
 
 df_agg=df.groupby("Ticker").last()
-df_agg_januari=df_januari.groupby("Ticker").last()
-
 
 date_stock_yesterday = '2022-10-26 00:00:00'
 
@@ -66,8 +54,8 @@ sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev,
 val = "("
 for i in df_agg.itertuples():
     dateeeTime = datetime.strptime(i[df.columns.get_loc('Date/Time')], "%m/%d/%Y %H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
-        # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
-        # dateeeTime = dateeeTime
+    # rrrrr = dateeeTime.strftime("%Y-%m-%d %H:%M:%S")
+    # dateeeTime = dateeeTime
     print(dateeeTime)
     # time.sleep(10000)
     stock_data_yesterday = "(select last from stock_daily_historicals where code = '" + i.Index +  "'" + " ORDER BY DATETIME DESC LIMIT 1" + ")"
@@ -81,15 +69,9 @@ for i in df_agg.itertuples():
 
     # stock_highest_df = df.groupby("Ticker")[""]
     # stock_lowest_df = df.groupby("Ticker")[""]
-    # print(str(i.Index))
-    # stock_prev = df_januari.groupby("Ticker").get_group(str(i.Index)).iloc[-1]["Close"]
-    # print(stock_prev)
-    # time.sleep(1000)
     stock_volume_df = df.groupby("Ticker").get_group(str(i.Index))["Volume"]
     stock_high_df = df.groupby("Ticker").get_group(str(i.Index))["High"]
     stock_low_df = df.groupby("Ticker").get_group(str(i.Index))["Low"]
-
-
 
     sum_volume = sum(stock_volume_df)
     stock_max_df = max(stock_high_df)
@@ -162,8 +144,7 @@ for i in df_agg.itertuples():
     #     print(sql + command_val)
     
     #     mycursor.execute(sql + command_val)
-# # mydb.commit()
-    
+    # # mydb.commit()
 mydb.commit()
 mycursor.execute("update stock_dailies set diff = last - prev")
 mycursor.execute("update stock_dailies set diff_percentage = (last - prev) / prev")
