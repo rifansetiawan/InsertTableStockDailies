@@ -91,6 +91,7 @@ for i in df_agg.itertuples():
         stock_low_df = df.groupby("Ticker").get_group(str(i.Index))["Low"]
 
 
+
         sum_volume = sum(stock_volume_df)
         stock_max_df = max(stock_high_df)
         stock_min_df = min(stock_low_df)
