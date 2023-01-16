@@ -64,7 +64,7 @@ with open('all_historical_latest.csv', 'w', encoding='UTF8', newline='') as f_tm
     writer.writerows(data_temp)
 
 # print(df_agg)
-df = pd.read_csv("all_historical_latest.csv")
+df = pd.read_csv("all_historical.csv")
 
 df_agg=df.groupby("Ticker").last()
 
