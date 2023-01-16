@@ -12,7 +12,7 @@ from datetime import date
 today = date.today()
 
 today_str = str(today) + " 00:00:00"
-today_str = "2023-01-13 00:00:00"
+# today_str = "2023-01-13 00:00:00"
 
 
 print("today str : ", today_str)
