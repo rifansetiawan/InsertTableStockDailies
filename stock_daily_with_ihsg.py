@@ -118,7 +118,7 @@ for i in df_agg.itertuples():
     command_val = "(" + data + ")" + ";"
     print(data)
     print(sql + command_val)
-    time.sleep(1000)
+    
     mycursor.execute(sql + command_val)
     
     # if i.Index == 'COMPOSITE' or i.Index("IDX", 0, 3) :
