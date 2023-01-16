@@ -49,7 +49,7 @@ df_agg=df.groupby("Ticker").last()
 
 date_stock_yesterday = '2022-10-26 00:00:00'
 
-mycursor.execute("DELETE FROM stock_dailies")
+# mycursor.execute("DELETE FROM stock_dailies")
 sql = "INSERT INTO stock_dailies (datetime,code,open,high,low,last,volume, prev, stock_logo,name, uuid) VALUES"
 val = "("
 for i in df_agg.itertuples():
